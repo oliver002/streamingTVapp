@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+  <title>Bla bla TV</title>
+  <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+  <link href="css/ionic.app.css" rel="stylesheet">-->
+
+  <!-- ionic/angularjs js -->
+  <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+  <!-- cordova script (this will be a 404 during development) -->
+  <script src="cordova.js"></script>
+
+  <!-- your app's js -->
+  <script src="js/app.js"></script>
+  <script type="text/javascript" src="http://demos.amitavroy.com/learningci/assets/js/xml2json.js" charset="UTF-8"></script>
+</head>
+<body ng-app="starter">
+<script>
+  var todoApp = angular.module('starter',[]);
+  todoApp.factory('todoFactory',function($http){
+    var factory = [];
+    factory.getTodos = function(){
+      return $http.get("http://cors.io/?u=http://blabla.mk/feed/");
+    }
+    return factory;
+  });
+  todoApp.controller('todos',function($scope,todoFactory){
+    $scope.todos = [];
+    loadTodos();
+    function loadTodos(){
+      todoFactory.getTodos().success(function(data){
+        courses  = x2js.xml_str2json(data);
+        console.log(courses.rss.channel.item);
+        $scope.todos =courses.rss.channel.item;
+      });
+    }
+    $scope.openLink = function (link){
+      window.open(link)
+    }
+//    console.log(todos);
+  });
+
+  //controler to play the stream. -NOT TESTED
+  todoApp.controller('playVideo', function ($scope) {
+    $scope.playVideo = "http://80.77.157.70/abc/hd.m3u8";
+    $scope.options = {
+      successCallback: function() {
+        console.log("Video was closed without error.");
+        //alert("Video was closed without error.");
+      },
+      errorCallback: function(errMsg) {
+        console.log("Error! " + errMsg);
+        alert("Streaming is not available right now!");
+      }
+    };
+    window.plugins.streamingMedia.playVideo(videoUrl, options);
+  });
+
+</script>
+<ion-pane>
+  <!--<div class="tabs-striped tabs-background-positive tabs-color-light ">-->
+    <!--<div class="tabs">-->
+      <!--<a class="tab-item" href="index.html">-->
+        <!--<i class="News"></i>-->
+        <!--Вести-->
+      <!--</a>-->
+      <!--&lt;!&ndash;<a class="tab-item" onclick="playVideo()">&ndash;&gt;-->
+      <!--<a class="tab-item" ng-click="playVideo">-->
+        <!--<i class="TV"></i>-->
+        <!--БлаБла ТВ-->
+      <!--</a>-->
+      <!--<a class="tab-item" href="About.html">-->
+        <!--<i class="About"></i>-->
+        <!--За Нас-->
+      <!--</a>-->
+    <!--</div>-->
+  <!--</div>-->
+
+    <div class="bar bar-header item-input-inset">
+      <a href="index.html"><i class="icon ion-arrow-left-c larger"></i></a>
+      <label class="item-input-wrapper">
+        <i class="icon ion-ios-search placeholder-icon"></i>
+        <input type="search" ng-model="search" class="search-query" placeholder="Search">
+      </label>
+      <!--ng-click treba da se stave. NOW DON'T WORK -->
+      <button class="button button-clear">Cancel</button>
+    </div>
+  <ion-content>
+    <div ng-controller="todos" class="list">
+
+      <div class="list card" ng-repeat="todo in todos | filter:search" >
+        <div class="item item-avatar" ng-click="openLink(todo.link)">
+          <img src="Bla-Bla-Logo-1.png">
+          <h2>{{todo.title}}</h2>
+          <p>{{todo.pubDate}}</p>
+        </div>
+
+        <div class="item item-body">
+          <!--<img class="full-image" src="delorean.jpg">-->
+          <p>{{todo.description | limitTo:10}}</p>
+          <p>
+            <a href="#" class="subdued">1 Like</a>
+            <a href="#" class="subdued">5 Comments</a>
+          </p>
+        </div>
+
+      <!--<ul>-->
+        <!--<li ng-repeat="todo in todos | filter:search">-->
+          <!--<a class="item" ng-click="openLink(todo.link)">-->
+            <!--<h2>{{todo.pubDate}}</h2>-->
+            <!--&lt;!&ndash;<p>{{todo.pubDate}}</p>&ndash;&gt;-->
+            <!--<p>{{todo.content}}</p>-->
+          <!--</a>-->
+        <!--</li>-->
+      <!--</ul>-->
+    </div> </div>
+  </ion-content>
+</ion-pane>
+</body>
+</html>

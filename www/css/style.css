@@ -10,3 +10,10 @@ margin-bottom:100px;
 .tabs{
 position: fixed;
 }
+#indexBody{
+  padding-top: 50%;
+}
+.larger{
+  font-size: 2em;
+  padding: 5%;
+}

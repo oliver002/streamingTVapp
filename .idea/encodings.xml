@@ -3,7 +3,9 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/package.json" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/plugins/com.hutchind.cordova.plugins.streamingmedia/src/android/com/hutchind/cordova/plugins/streamingmedia/SimpleVideoStream.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/Home.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/www/css/style.css" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/home.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/www/js/app.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/www/js/controllers.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/www/js/feeds.js" charset="UTF-8" />
