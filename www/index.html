@@ -26,22 +26,16 @@
   <body ng-app="starter">
   	 <script>
         var todoApp = angular.module('starter',[]);
-        
         todoApp.factory('todoFactory',function($http){
           var factory = [];
-          
           factory.getTodos = function(){
             return $http.get("http://cors.io/?u=http://blabla.mk/feed/");
           }
-        
             return factory;
         });
-        
         todoApp.controller('todos',function($scope,todoFactory){
-          
           $scope.todos = [];
           loadTodos();
-          
           function loadTodos(){
             todoFactory.getTodos().success(function(data){
                 courses  = x2js.xml_str2json(data);
@@ -49,16 +43,14 @@
                 $scope.todos =courses.rss.channel.item;
             });
             }
-			
 		 $scope.openLink = function (link){
 			window.open(link)
 		 }
         });
-		
-		
-</script> 
+
+</script>
     <ion-pane>
-		 <div class=" tabs-striped  tabs-background-dark tabs-color-light ">
+		 <div class="tabs-striped  tabs-background-dark tabs-color-light ">
 			<div class="tabs">
 				  <a class="tab-item" href="index.html">
 					<i class="News"></i>
@@ -73,13 +65,12 @@
 					За Нас
 				  </a>
 			</div>
-		</div>		 
+		</div>
 		<ion-content>
 		  <input type="text" ng-model="search" class="search-query" placeholder="Search">
 			<div ng-controller="todos" class="list">
 				<ul>
 					<li ng-repeat="todo in todos | filter:search">
-					
 						<a class="item" ng-click="openLink(todo.link)">
 								<h2>{{todo.title}}</h2>
 								<p>{{todo.content}}</p>
