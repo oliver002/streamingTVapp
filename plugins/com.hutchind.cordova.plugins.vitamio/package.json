@@ -1,0 +1,26 @@
+{
+    "version": "0.0.2",
+    "name": "com.hutchind.cordova.plugins.vitamio",
+    "cordova_name": "Vitamio",
+    "description": "\r\n\t\tThis plugin allows you to launch a fullscreen streaming player for audio or video on Android using software decoding via Vitamio.\r\n\t",
+    "license": "MIT",
+    "repo": "https://github.com/nchutchind/Vitamio-Cordova-Plugin.git",
+    "issue": "https://github.com/nchutchind/Vitamio-Cordova-Plugin/issues",
+    "keywords": [
+        "Streaming",
+        " Media",
+        " Video",
+        " Audio",
+        " Android",
+        " Vitamio"
+    ],
+    "platforms": [
+        "android"
+    ],
+    "engines": [
+        {
+            "name": "cordova",
+            "version": ">=3.0.0"
+        }
+    ]
+}

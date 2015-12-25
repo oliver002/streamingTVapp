@@ -32,13 +32,14 @@
   todoApp.controller('todos',function($scope,todoFactory){
     $scope.todos = [];
     loadTodos();
-    function loadTodos(){
-      todoFactory.getTodos().success(function(data){
-        courses  = x2js.xml_str2json(data);
+    function loadTodos() {
+      todoFactory.getTodos().success(function (data) {
+        courses = x2js.xml_str2json(data);
         console.log(courses.rss.channel.item);
-        $scope.todos =courses.rss.channel.item;
+        $scope.todos = courses.rss.channel.item;
       });
     }
+    $scope.letterLimit = 100;
     $scope.openLink = function (link){
       window.open(link)
     }
@@ -62,37 +63,19 @@
   });
 
 </script>
-<ion-pane>
-  <!--<div class="tabs-striped tabs-background-positive tabs-color-light ">-->
-    <!--<div class="tabs">-->
-      <!--<a class="tab-item" href="index.html">-->
-        <!--<i class="News"></i>-->
-        <!--Вести-->
-      <!--</a>-->
-      <!--&lt;!&ndash;<a class="tab-item" onclick="playVideo()">&ndash;&gt;-->
-      <!--<a class="tab-item" ng-click="playVideo">-->
-        <!--<i class="TV"></i>-->
-        <!--БлаБла ТВ-->
-      <!--</a>-->
-      <!--<a class="tab-item" href="About.html">-->
-        <!--<i class="About"></i>-->
-        <!--За Нас-->
-      <!--</a>-->
-    <!--</div>-->
-  <!--</div>-->
-
-    <div class="bar bar-header item-input-inset">
-      <a href="index.html"><i class="icon ion-arrow-left-c larger"></i></a>
+<div class="bar bar-header bar-light">
+  <a href="index.html"><i class="icon ion-arrow-left-c larger"></i></a>
+  <h1 class="title">Bla bla TV</h1>
+</div>
+    <div class="bar bar-subheader item-input-inset">
       <label class="item-input-wrapper">
-        <i class="icon ion-ios-search placeholder-icon"></i>
-        <input type="search" ng-model="search" class="search-query" placeholder="Search">
+            <i class="icon ion-ios-search placeholder-icon"></i>
+            <input type="search" ng-model="search" class="search-query" placeholder="Search">
       </label>
-      <!--ng-click treba da se stave. NOW DON'T WORK -->
-      <button class="button button-clear">Cancel</button>
-    </div>
-  <ion-content>
-    <div ng-controller="todos" class="list">
-
+      <button class="button button-clear" ng-click="search=''">Cancel</button>
+  </div>
+  <!--end header-->
+    <div ng-controller="todos" class="list" style="padding-top: 8%">
       <div class="list card" ng-repeat="todo in todos | filter:search" >
         <div class="item item-avatar" ng-click="openLink(todo.link)">
           <img src="Bla-Bla-Logo-1.png">
@@ -100,26 +83,18 @@
           <p>{{todo.pubDate}}</p>
         </div>
 
-        <div class="item item-body">
+        <div class="item item-body" ng-model="letterLimit">
           <!--<img class="full-image" src="delorean.jpg">-->
-          <p>{{todo.description | limitTo:10}}</p>
+          <p ng-pattern="/<p>(.*?)<\/p>/">{{todo.description | limitTo:letterLimit}}</p>
           <p>
             <a href="#" class="subdued">1 Like</a>
             <a href="#" class="subdued">5 Comments</a>
           </p>
         </div>
+    </div>
+    <!--end list card-->
+    </div>
+    <!--end todos-->
 
-      <!--<ul>-->
-        <!--<li ng-repeat="todo in todos | filter:search">-->
-          <!--<a class="item" ng-click="openLink(todo.link)">-->
-            <!--<h2>{{todo.pubDate}}</h2>-->
-            <!--&lt;!&ndash;<p>{{todo.pubDate}}</p>&ndash;&gt;-->
-            <!--<p>{{todo.content}}</p>-->
-          <!--</a>-->
-        <!--</li>-->
-      <!--</ul>-->
-    </div> </div>
-  </ion-content>
-</ion-pane>
 </body>
 </html>
