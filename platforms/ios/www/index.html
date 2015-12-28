@@ -1,93 +1,52 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title></title>
+<head>
+  <meta charset="utf-8">
+  <title>Bla bla TV </title>
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
 
-    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+  <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
 
-    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
-    <link href="css/ionic.app.css" rel="stylesheet">
-    -->
+  <script src="lib/ionic/js/ionic.bundle.js"></script>
 
-    <!-- ionic/angularjs js -->
-    <script src="lib/ionic/js/ionic.bundle.js"></script>
+  <!-- Needed for Cordova/PhoneGap (will be a 404 during development) -->
+  <script src="cordova.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    var todoApp = angular.module('starter',[]);
+    //controler to play the stream. -NOT TESTED
+    todoApp.controller('playVideo', function ($scope) {
+      $scope.playVideo = "http://80.77.157.70/abc/hd.m3u8";
+      $scope.options = {
+        successCallback: function() {
+          console.log("Video was closed without error.");
+          //alert("Video was closed without error.");
+        },
+        errorCallback: function(errMsg) {
+          console.log("Error! " + errMsg);
+          alert("Streaming is not available right now!");
+        }
+      };
+      window.plugins.streamingMedia.playVideo(videoUrl, options);
+    });
+  </script>
+</head>
+<body ng-app="starter" id="indexBody" class="platform-ios platform-cordova platform-webview">
+<div class="row">
+  <div class="col-25"></div>
+ <div class="col-50">
+   <a class="button button-positive button-block" href="home.html">News</a>
+ </div>
+</div>
+<div class="row">
+  <div class="col-25"></div>
+  <div class="col-50"><a class="button button-positive button-block" href="About.html">About</a></div>
+</div>
+<div class="row">
+  <div class="col-25"></div>
+  <div class="col-50" ng-controller="playVideo"><a class="button button-positive button-block" onclick="playVideo()" >TV</a></div>
 
-    <!-- cordova script (this will be a 404 during development) -->
-    <script src="cordova.js"></script>
-
-    <!-- your app's js -->
-    <script src="js/app.js"></script>
-	<script type="text/javascript" src="http://demos.amitavroy.com/learningci/assets/js/xml2json.js" charset="UTF-8"></script>
-  </head>
-  <!-- <body ng-app="starter" ng-controller="Streaming" class="platform-ios platform-cordova platform-webview"> -->
-  <body ng-app="starter">
-  	 <script>
-        var todoApp = angular.module('starter',[]);
-        
-        todoApp.factory('todoFactory',function($http){
-          var factory = [];
-          
-          factory.getTodos = function(){
-            return $http.get("http://cors.io/?u=http://blabla.mk/feed/");
-          }
-        
-            return factory;
-        });
-        
-        todoApp.controller('todos',function($scope,todoFactory){
-          
-          $scope.todos = [];
-          loadTodos();
-          
-          function loadTodos(){
-            todoFactory.getTodos().success(function(data){
-                courses  = x2js.xml_str2json(data);
-                console.log(courses.rss.channel.item);
-                $scope.todos =courses.rss.channel.item;
-            });
-            }
-			
-		 $scope.openLink = function (link){
-			window.open(link)
-		 }
-        });
-		
-		
-</script> 
-    <ion-pane>
-		 <div class=" tabs-striped  tabs-background-dark tabs-color-light ">
-			<div class="tabs">
-				  <a class="tab-item" href="index.html">
-					<i class="News"></i>
-					Вести
-				  </a>
-				  <a class="tab-item" onclick="playVideo()">
-					<i class="TV"></i>
-					БлаБла ТВ
-				  </a>
-				  <a class="tab-item" href="About.html">
-					<i class="About"></i>
-					За Нас
-				  </a>
-			</div>
-		</div>		 
-		<ion-content>
-		  <input type="text" ng-model="search" class="search-query" placeholder="Search">
-			<div ng-controller="todos" class="list">
-				<ul>
-					<li ng-repeat="todo in todos | filter:search">
-					
-						<a class="item" ng-click="openLink(todo.link)">
-								<h2>{{todo.title}}</h2>
-								<p>{{todo.content}}</p>
-						</a>
-					</li>
-				</ul>
-			</div>
-		</ion-content>
-		    </ion-pane>
-  </body>
+</div>
+</body>
 </html>
