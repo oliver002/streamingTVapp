@@ -11,7 +11,7 @@
 
   <!-- ionic/angularjs js -->
   <script src="lib/ionic/js/ionic.bundle.js"></script>
-
+  <script src="lib/angular-sanitize.js"></script> <!--dodadeno -->
   <!-- cordova script (this will be a 404 during development) -->
   <script src="cordova.js"></script>
 
@@ -21,7 +21,8 @@
 </head>
 <body ng-app="starter">
 <script>
-  var todoApp = angular.module('starter',[]);
+  var todoApp = angular.module('starter',['ngSanitize']); <!--dodadeno ng-santize -->
+
   todoApp.factory('todoFactory',function($http){
     var factory = [];
     factory.getTodos = function(){
@@ -29,25 +30,36 @@
     }
     return factory;
   });
+
   todoApp.controller('todos',function($scope,todoFactory){
-    $scope.todos = [];
-    loadTodos();
-    function loadTodos() {
+   // $scope.todos = [];
+//    loadTodos();
+//    function loadTodos() {
       todoFactory.getTodos().success(function (data) {
         courses = x2js.xml_str2json(data);
-        console.log(courses.rss.channel.item);
+        //console.log(courses.rss.channel.item);
         $scope.todos = courses.rss.channel.item;
+        console.log($scope.todos);
+        for(var i = 0 ; i < $scope.todos.length ; i++){
+          itemche = $scope.todos[i];
+         // console.log(itemche.description);
+          $scope.message = itemche.description; <!--dodadeno-->
+        }
+
+
       });
-    }
-    $scope.letterLimit = 100;
+//    }
+//console.log($scope.todos);
+
+    $scope.beginLetter = 13;
     $scope.openLink = function (link){
-      window.open(link)
+      window.open(link , '_system'); //_system za da go otvori so sistemski browser
     }
-//    console.log(todos);
   });
 
   //controler to play the stream. -NOT TESTED
   todoApp.controller('playVideo', function ($scope) {
+
     $scope.playVideo = "http://80.77.157.70/abc/hd.m3u8";
     $scope.options = {
       successCallback: function() {
@@ -77,15 +89,17 @@
   <!--end header-->
     <div ng-controller="todos" class="list" style="padding-top: 8%">
       <div class="list card" ng-repeat="todo in todos | filter:search" >
-        <div class="item item-avatar" ng-click="openLink(todo.link)">
+        <div class="item item-avatar" ng-click="openLink(todo.link)" >
           <img src="Bla-Bla-Logo-1.png">
           <h2>{{todo.title}}</h2>
-          <p>{{todo.pubDate}}</p>
+          <p>{{todo.pubDate | limitTo:25 }}</p>
         </div>
 
-        <div class="item item-body" ng-model="letterLimit">
+        <div class="item item-body">
           <!--<img class="full-image" src="delorean.jpg">-->
-          <p ng-pattern="/<p>(.*?)<\/p>/">{{todo.description | limitTo:letterLimit}}</p>
+          <!--<p>{{todo.description.__cdata | limitTo: 120:3 }}</p>-->
+          <!--<p>{{todo.description.__cdata}}</p>-->
+          <p ng-bind-html="message"></p> <!-- dodadeno-->
           <p>
             <a href="#" class="subdued">1 Like</a>
             <a href="#" class="subdued">5 Comments</a>
