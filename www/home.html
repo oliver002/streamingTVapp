@@ -32,9 +32,6 @@
   });
 
   todoApp.controller('todos',function($scope,todoFactory){
-   // $scope.todos = [];
-//    loadTodos();
-//    function loadTodos() {
       todoFactory.getTodos().success(function (data) {
         courses = x2js.xml_str2json(data);
         //console.log(courses.rss.channel.item);
@@ -45,13 +42,7 @@
          // console.log(itemche.description);
           $scope.message = itemche.description; <!--dodadeno-->
         }
-
-
       });
-//    }
-//console.log($scope.todos);
-
-    $scope.beginLetter = 13;
     $scope.openLink = function (link){
       window.open(link , '_system'); //_system za da go otvori so sistemski browser
     }
@@ -59,7 +50,6 @@
 
   //controler to play the stream. -NOT TESTED
   todoApp.controller('playVideo', function ($scope) {
-
     $scope.playVideo = "http://80.77.157.70/abc/hd.m3u8";
     $scope.options = {
       successCallback: function() {
@@ -109,6 +99,5 @@
     <!--end list card-->
     </div>
     <!--end todos-->
-
 </body>
 </html>
