@@ -18,6 +18,7 @@
   <!-- your app's js -->
   <script src="js/app.js"></script>
   <script type="text/javascript" src="http://demos.amitavroy.com/learningci/assets/js/xml2json.js" charset="UTF-8"></script>
+
 </head>
 <body ng-app="starter">
 <script>
@@ -36,13 +37,14 @@
         courses = x2js.xml_str2json(data);
         //console.log(courses.rss.channel.item);
         $scope.todos = courses.rss.channel.item;
-        console.log($scope.todos);
-        for(var i = 0 ; i < $scope.todos.length ; i++){
-          itemche = $scope.todos[i];
-         // console.log(itemche.description);
-          $scope.message = itemche.description; <!--dodadeno-->
-        }
+//        console.log($scope.todos);
+//        for(var i = 0 ; i < $scope.todos.length ; i++){
+//          item = $scope.todos[i];
+//         console.log(item.description);
+//          $scope.message = item.description;
+//        }
       });
+
     $scope.openLink = function (link){
       window.open(link , '_system'); //_system za da go otvori so sistemski browser
     }
@@ -86,10 +88,7 @@
         </div>
 
         <div class="item item-body">
-          <!--<img class="full-image" src="delorean.jpg">-->
-          <!--<p>{{todo.description.__cdata | limitTo: 120:3 }}</p>-->
-          <!--<p>{{todo.description.__cdata}}</p>-->
-          <p ng-bind-html="message"></p> <!-- dodadeno-->
+          <p ng-bind-html="todo.description"></p> <!-- dodadeno-->
           <p>
             <a href="#" class="subdued">1 Like</a>
             <a href="#" class="subdued">5 Comments</a>

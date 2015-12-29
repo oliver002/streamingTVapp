@@ -30,8 +30,8 @@
 				StatusBar.styleDefault();
 			}
 		});
-		//$rootScope.goHome = function() {
-		//	$state.go("Entries");
+	//	$rootScope.goHome = function() {
+	//		$state.go("Entries");
 		//};
 	}]);
 }());
